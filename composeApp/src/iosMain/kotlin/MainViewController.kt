@@ -1,4 +1,4 @@
 import androidx.compose.ui.window.ComposeUIViewController
-import di.KotlinDependencies
+import presentation.view.navigation.FinanceNavigation
 
-fun MainViewController() = ComposeUIViewController { App(KotlinDependencies.getBreedViewModel()) }
+fun MainViewController() = ComposeUIViewController { FinanceNavigation() }

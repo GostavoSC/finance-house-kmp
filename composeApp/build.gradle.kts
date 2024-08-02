@@ -49,8 +49,12 @@ kotlin {
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
             implementation(libs.koin.compose)
+            implementation(libs.koin.core)
+//            implementation(libs.koin.android)
             implementation(libs.kotlinx.coroutines.core)
+            implementation(libs.koin.composeVM)
             implementation("org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose:2.8.0")
+            implementation("org.jetbrains.androidx.navigation:navigation-compose:2.7.0-alpha07")
         }
     }
 }

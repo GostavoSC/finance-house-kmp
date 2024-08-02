@@ -1,4 +1,4 @@
-package presentation.view
+package presentation.view.home
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
@@ -21,11 +21,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.koin.compose.viewmodel.koinViewModel
+import org.koin.core.annotation.KoinExperimentalAPI
 import presentation.theme.FinanceHouseTheme
+import presentation.view.AppViewModel
 
-@OptIn(ExperimentalMaterialApi::class)
+@OptIn(ExperimentalMaterialApi::class, KoinExperimentalAPI::class)
 @Composable
-fun App(viewModel: AppViewModel) {
+fun HomeScreen(viewModel: AppViewModel = koinViewModel<AppViewModel>(), onNavigateToPayments: () -> Unit) {
     FinanceHouseTheme {
         Scaffold(
             topBar = {
@@ -47,9 +51,7 @@ fun App(viewModel: AppViewModel) {
                     Card (
                         border = BorderStroke(color = MaterialTheme.colors.primary, width = 1.dp),
                         modifier = Modifier.fillMaxWidth(),
-                        onClick = {
-                            viewModel.insertPayment()
-                        }
+                        onClick = onNavigateToPayments
                     ){
                         Row (
                             horizontalArrangement = Arrangement.SpaceBetween,
@@ -76,6 +78,7 @@ fun App(viewModel: AppViewModel) {
     }
 }
 
+@Preview
 @Composable
 fun Preview(modifier: Modifier = Modifier) {
 

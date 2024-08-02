@@ -1,11 +1,13 @@
 package di
 
+import androidx.lifecycle.viewmodel.compose.viewModel
 import dev.gstv.fhouse.DatabaseHelper
 import dev.gstv.fhouse.cache.CacheDataImpl
 import domain.GetPaymentsUseCase
 import domain.IRepository
 import domain.InsertPaymentsUseCase
 import kotlinx.coroutines.Dispatchers
+import org.koin.compose.viewmodel.dsl.viewModelOf
 import org.koin.core.component.KoinComponent
 import org.koin.core.context.startKoin
 import org.koin.core.module.dsl.factoryOf
@@ -31,7 +33,7 @@ fun initKoin(
 
 
 val viewModelModule = module {
-    factoryOf(::AppViewModel)
+    viewModelOf(::AppViewModel)
 }
 
 val useCases = module {
