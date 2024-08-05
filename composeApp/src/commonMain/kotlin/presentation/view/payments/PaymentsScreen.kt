@@ -9,18 +9,20 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 @Composable
-fun PaymentsScreen(modifier: Modifier = Modifier, onBackPressed: () -> Unit) {
+fun PaymentsScreen(
+    onBackPressed: () -> Unit,
+    onInsertPayment: () -> Unit
+) {
+
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(
-                onClick = {}
-            ){
+                onClick = onInsertPayment
+            ) {
                 Icon(Icons.Default.Add, contentDescription = "")
             }
         },
@@ -32,7 +34,7 @@ fun PaymentsScreen(modifier: Modifier = Modifier, onBackPressed: () -> Unit) {
                 navigationIcon = {
                     IconButton(
                         onClick = onBackPressed
-                    ){
+                    ) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "")
                     }
                 }

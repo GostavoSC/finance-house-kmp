@@ -1,24 +1,21 @@
 package presentation.view.navigation
 
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.slideIn
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.IntOffset
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import presentation.theme.FinanceHouseTheme
 import presentation.view.home.HomeScreen
+import presentation.view.payments.insertion.PaymentsInsertionScreen
 import presentation.view.payments.PaymentsScreen
 
 @Composable
 fun FinanceNavigation(
     navController: NavHostController = rememberNavController(),
-    modifier: Modifier = Modifier
 ) {
     FinanceHouseTheme {
         NavHost(
@@ -51,6 +48,31 @@ fun FinanceNavigation(
                 PaymentsScreen(
                     onBackPressed = {
                         navController.popBackStack()
+                    },
+                    onInsertPayment = {
+                        navController.navigate(FinanceRoutes.PaymentsInsertionScreen.route)
+                    }
+                )
+            }
+
+            composable(
+                FinanceRoutes.PaymentsInsertionScreen.route,
+                enterTransition = {
+                    slideInHorizontally(
+                        initialOffsetX = { 1000 },
+                        animationSpec = tween(durationMillis = 300)
+                    )
+                },
+                exitTransition = {
+                    slideOutHorizontally(
+                        targetOffsetX = { 1000 },
+                        animationSpec = tween(durationMillis = 300)
+                    )
+                },
+            ) {
+                PaymentsInsertionScreen(
+                    onBackPressed = {
+                        navController.popBackStack()
                     }
                 )
             }
@@ -61,4 +83,5 @@ fun FinanceNavigation(
 sealed class FinanceRoutes(val route: String) {
     data object HomeScreen : FinanceRoutes("home-screen")
     data object PaymentsScreen : FinanceRoutes("payments-screen")
+    data object PaymentsInsertionScreen : FinanceRoutes("payment-insertion-screen")
 }
