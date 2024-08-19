@@ -1,5 +1,8 @@
 package presentation.view.navigation
 
+import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
@@ -17,61 +20,41 @@ import presentation.view.payments.PaymentsScreen
 fun FinanceNavigation(
     navController: NavHostController = rememberNavController(),
 ) {
+
     FinanceHouseTheme {
+
         NavHost(
             navController = navController,
             startDestination = FinanceRoutes.HomeScreen.route,
         ) {
             composable(
                 FinanceRoutes.HomeScreen.route,
-                enterTransition = null
+                enterTransition = { EnterTransition.None }
             ) {
                 HomeScreen {
                     navController.navigate(FinanceRoutes.PaymentsScreen.route)
                 }
             }
-            composable(
-                FinanceRoutes.PaymentsScreen.route,
-                enterTransition = {
-                    slideInHorizontally(
-                        initialOffsetX = { 1000 },
-                        animationSpec = tween(durationMillis = 300)
-                    )
-                },
-                exitTransition = {
-                    slideOutHorizontally(
-                        targetOffsetX = { 1000 },
-                        animationSpec = tween(durationMillis = 300)
-                    )
-                },
-            ) {
-                PaymentsScreen(
-                    onBackPressed = {
-                        navController.popBackStack()
-                    },
-                    onInsertPayment = {
-                        navController.navigate(FinanceRoutes.PaymentsInsertionScreen.route)
-                    }
-                )
-            }
+
+            paymentsNav(navController)
 
             composable(
                 FinanceRoutes.PaymentsInsertionScreen.route,
                 enterTransition = {
-                    slideInHorizontally(
-                        initialOffsetX = { 1000 },
+                    slideIntoContainer(
+                        towards = AnimatedContentTransitionScope.SlideDirection.Start,
                         animationSpec = tween(durationMillis = 300)
                     )
                 },
-                exitTransition = {
-                    slideOutHorizontally(
-                        targetOffsetX = { 1000 },
+                popExitTransition = {
+                    slideOutOfContainer(
+                        towards = AnimatedContentTransitionScope.SlideDirection.End,
                         animationSpec = tween(durationMillis = 300)
                     )
                 },
             ) {
                 PaymentsInsertionScreen(
-                    onBackPressed = {
+                    onBackPressed = { isDone ->
                         navController.popBackStack()
                     }
                 )

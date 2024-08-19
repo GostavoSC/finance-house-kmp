@@ -16,4 +16,6 @@ val White = Color(0xFFFFFFFF)
 val Green = Color(0xFF03DAC5)
 val GreenTwo = Color(0xFF018786)
 val GreenThree = Color(0xFF018786)
+val Blue = Color(0xFF0D88E1)
+val BlueDark = Color(0xFF06406A)
 

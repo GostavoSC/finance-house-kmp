@@ -49,16 +49,12 @@ val repositoryModule = module {
     single<ICacheData> { CacheDataImpl(get()) }
 }
 val sqlDelightModule = module {
-    single { DatabaseHelper(get(), Dispatchers.Default) }
+    single { DatabaseHelper(get(), get()) }
 }
 
 val dispatcherModule = module {
     factory { Dispatchers.Default }
 }
-
-//object KotlinDependencies : KoinComponent {
-//    fun getBreedViewModel() = getKoin().get<AppViewModel>()
-//}
 
 @OptIn(KoinExperimentalAPI::class)
 @Composable

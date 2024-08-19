@@ -1,11 +1,16 @@
 package presentation.view.payments.insertion
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import domain.IRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
-class PaymentInsertionViewModel : ViewModel() {
+class PaymentInsertionViewModel(
+    private val repository: IRepository
+) : ViewModel() {
 
     private val _state = MutableStateFlow(
         InsertionState()
@@ -38,5 +43,28 @@ class PaymentInsertionViewModel : ViewModel() {
         }
     }
 
+    fun insertPayment() {
+        viewModelScope.launch {
+            showLoading()
+            repository.insertPayment(
+                state.value.toPayment()
+            )
+            hideLoading()
+            _state.update {
+                it.withDone(true)
+            }
+        }
+    }
 
+    private fun showLoading(){
+        _state.update {
+            it.withLoading(true)
+        }
+    }
+
+    private fun hideLoading(){
+        _state.update {
+            it.withLoading(false)
+        }
+    }
 }

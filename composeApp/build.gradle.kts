@@ -50,7 +50,7 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.koin.compose)
             implementation(libs.koin.core)
-//            implementation(libs.koin.android)
+            implementation ("com.google.accompanist:accompanist-systemuicontroller:0.35.1-alpha")
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.koin.composeVM)
             implementation("org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose:2.8.0")
@@ -94,6 +94,9 @@ android {
     dependencies {
         debugImplementation(compose.uiTooling)
     }
+}
+dependencies {
+    implementation(libs.androidx.foundation.layout.android)
 }
 
 sqldelight {

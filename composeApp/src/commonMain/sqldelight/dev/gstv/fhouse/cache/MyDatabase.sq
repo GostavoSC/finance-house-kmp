@@ -1,6 +1,9 @@
 CREATE TABLE Payments(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL
+    name TEXT NOT NULL,
+    description TEXT NOT NULL,
+    date TEXT NOT NULL,
+    value REAL NOT NULL
 );
 
 
@@ -8,4 +11,4 @@ selectAllPayments:
 SELECT * FROM Payments;
 
 insertPayment:
-INSERT INTO Payments(id, name) VALUES (?,?);
+INSERT INTO Payments(id, name, description, date, value) VALUES (?,?,?,?,?);

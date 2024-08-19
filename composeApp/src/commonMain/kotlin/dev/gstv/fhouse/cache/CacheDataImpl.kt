@@ -8,7 +8,7 @@ class CacheDataImpl(
     private val database: DatabaseHelper
 ) : ICacheData {
     override suspend fun getAllPayments(): List<Payments> {
-        return database.getAllTest().map { Payments(it.id, it.name) }
+        return database.getAllTest().map { Payments(it.id, it.name, it.description, it.date, it.value) }
     }
 
     override suspend fun insertPayment(payments: Payments) {

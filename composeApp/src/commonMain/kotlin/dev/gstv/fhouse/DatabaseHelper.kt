@@ -4,11 +4,7 @@ package dev.gstv.fhouse
 import com.squareup.sqldelight.db.SqlDriver
 import dev.gstv.fhouse.cache.PaymentsDb
 import entity.Payments
-
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOn
 
 class DatabaseHelper(
     sqlDriver: SqlDriver,
@@ -19,11 +15,17 @@ class DatabaseHelper(
 
     fun getAllTest(): List<Payments> {
         return dbRef.myDatabaseQueries.selectAllPayments().executeAsList()
-            .map { Payments(it.id, it.name) }
+            .map { Payments(it.id, it.name, it.description, it.date, it.value_) }
     }
 
     fun insertPayment(payments: Payments) {
-        dbRef.myDatabaseQueries.insertPayment(null, payments.name)
+        dbRef.myDatabaseQueries.insertPayment(
+            id = null,
+            name = payments.name,
+            description = payments.description,
+            date = payments.date,
+            value_ = payments.value
+        )
     }
 
 //    fun selectAllItems(): Flow<List<Breed>> = dbRef.tableQueries
